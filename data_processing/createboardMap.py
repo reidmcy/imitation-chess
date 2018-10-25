@@ -7,7 +7,7 @@ outputPath = '../data/mapping_2015-03.csv'
 def main():
     games = imitation_chess.GamesFile(gamesPath)
     with open(outputPath, 'w') as f:
-        f.write("board,move,game")
+        f.write("board,move,game\n")
         for i, g in enumerate(games):
             d = imitation_chess.getBoardMoveMap(g)
             gameID = g.headers['LichessId']
