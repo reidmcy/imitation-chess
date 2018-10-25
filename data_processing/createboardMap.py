@@ -1,8 +1,8 @@
 import imitation_chess
 import chess
 
-gamesPath = '../data/lichess_db_standard_rated_2015-03.pgn.bz2'
-outputPath = '../data/mapping_2015-03.csv'
+gamesPath = '../data/lichess_db_standard_rated_2018-09.pgn.bz2'
+outputPath = '../data/mapping_2018-09.csv'
 
 def main():
     games = imitation_chess.GamesFile(gamesPath)
