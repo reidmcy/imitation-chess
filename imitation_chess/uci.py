@@ -5,6 +5,7 @@ import concurrent.futures
 import threading
 
 import re
+import os.path
 
 probRe = re.compile(r"\(P: +([^)]+)\)")
 
@@ -36,10 +37,10 @@ class ProbInfoHandler(chess.uci.InfoHandler):
 
 class EngineHandler(object):
     def __init__(self, engine, weights, threads = 2):
-        self.enginePath = engine
-        self.weightsPath = weights
+        self.enginePath = os.path.normpath(engine)
+        self.weightsPath = os.path.normpath(weights)
 
-        self.engine = chess.uci.popen_engine(["weights/lc0", "--verbose-move-stats", f"--threads={threads}", f"--weights={weights}"])
+        self.engine = chess.uci.popen_engine([self.enginePath, "--verbose-move-stats", f"--threads={threads}", f"--weights={self.weightsPath}"])
 
         self.info_handler = ProbInfoHandler()
         self.engine.info_handlers.append(self.info_handler)
