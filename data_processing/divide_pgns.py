@@ -19,6 +19,12 @@ class LightGamesFile(object):
                 raise StopIteration
             yield g
 
+    def __del__(self):
+        try:
+            self.f.close()
+        except AttributeError:
+            pass
+
 def writePGNdict(pgnDict, outputDir):
     print("Writing: ", end = '')
     for i, v in pgnDict.items():
@@ -46,7 +52,7 @@ def writeGameELOs(games, outputDir):
                 sortedPGNs[BlackElo] = [str(g)]
 
         if i % 1000 == 0:
-            print("Processed {} games".format(i))
+            print("Processed {} games".format(i), end = '\r')
         if i % 10000 == 0 and i > 1:
             writePGNdict(sortedPGNs, outputDir)
             sortedPGNs.clear()
@@ -54,19 +60,24 @@ def writeGameELOs(games, outputDir):
 
     writePGNdict(sortedPGNs, outputDir)
 
-def main():
-
-    gamesPath = sys.argv[1]
-    outputDirName = os.path.basename(gamesPath)[:-8]
+def processPath(path):
+    outputDirName = os.path.basename(path)[:-8]
     outputDir = os.path.join(outputPath, outputDirName)
 
-
-    print("Loading: ", gamesPath)
+    print("Loading: ", path)
     print("To: ", outputDir)
 
-    games = LightGamesFile(gamesPath)
+    games = LightGamesFile(path)
     gameElos = writeGameELOs(games, outputDir)
-    print("Done")
+    print("Done: ", path)
+
+def main():
+
+    for gamesPath in sys.argv[1:]:
+        try:
+            processPath(gamesPath)
+        except FileExistsError:
+            print("Skipping: ", gamesPath)
 
 if __name__ == '__main__':
     main()
