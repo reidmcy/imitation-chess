@@ -2,7 +2,7 @@ import imitation_chess
 import chess
 
 import os
-
+import gc
 import sys
 
 
@@ -41,6 +41,9 @@ def writeGameELOs(games, outputDir):
             writePGNdict(sortedPGNs, outputDir)
             del sortedPGNs
             sortedPGNs = {}
+
+        if i % 100000 == 0 and i > 1:
+            gc.collect()
     writePGNdict(sortedPGNs, outputDir)
 
 def main():
