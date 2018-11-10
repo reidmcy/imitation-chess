@@ -1,6 +1,7 @@
 import imitation_chess
 import chess
 
+import bz2
 import os
 import gc
 import sys
