@@ -5,11 +5,18 @@ import os
 import gc
 import sys
 
-
-#gamesPath = '../data/lichess_db_standard_rated_2015-03.pgn.bz2'
-
-
 outputPath = '/datadrive/split_games/'
+
+class LightGamesFile(object):
+    def __init__(self, path):
+        self.f = bz2.open(path, 'rt')
+
+    def __iter__(self):
+        while True:
+            g = chess.pgn.read_game(self.f)
+            if g is None:
+                raise StopIteration
+            yield g
 
 def writePGNdict(pgnDict, outputDir):
     print("Writing: ", end = '')
@@ -39,18 +46,15 @@ def writeGameELOs(games, outputDir):
             print("Processed {} games".format(i))
         if i % 10000 == 0 and i > 1:
             writePGNdict(sortedPGNs, outputDir)
-            del sortedPGNs
+            sortedPGNs.clear()
             gc.collect()
-            sortedPGNs = {}
 
     writePGNdict(sortedPGNs, outputDir)
 
 def main():
 
     gamesPath = sys.argv[1]
-
     outputDirName = os.path.basename(gamesPath)[:-8]
-
     outputDir = os.path.join(outputPath, outputDirName)
 
 
