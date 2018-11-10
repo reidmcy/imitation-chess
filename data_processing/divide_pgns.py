@@ -39,6 +39,7 @@ def writeGameELOs(games, outputDir):
             print("Processed {} games".format(i))
         if i % 10000 == 0 and i > 1:
             writePGNdict(sortedPGNs, outputDir)
+            del sortedPGNs
             sortedPGNs = {}
     writePGNdict(sortedPGNs, outputDir)
 
