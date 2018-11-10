@@ -8,11 +8,9 @@ import sys
 outputPath = '/datadrive/split_games/'
 
 class LightGamesFile(object):
-    @profile
     def __init__(self, path):
         self.f = bz2.open(path, 'rt')
 
-    @profile
     def __iter__(self):
         while True:
             g = chess.pgn.read_game(self.f)
@@ -20,7 +18,6 @@ class LightGamesFile(object):
                 raise StopIteration
             yield g
 
-@profile
 def writePGNdict(pgnDict, outputDir):
     print("Writing: ", end = '')
     for i, v in pgnDict.items():
@@ -30,7 +27,6 @@ def writePGNdict(pgnDict, outputDir):
             f.write('\n\n')
     print()
 
-@profile
 def writeGameELOs(games, outputDir):
 
     os.makedirs(outputDir, exist_ok = True)
@@ -55,7 +51,6 @@ def writeGameELOs(games, outputDir):
 
     writePGNdict(sortedPGNs, outputDir)
 
-@profile
 def main():
 
     gamesPath = sys.argv[1]
@@ -66,7 +61,7 @@ def main():
     print("Loading: ", gamesPath)
     print("To: ", outputDir)
 
-    games = LightGamesFile(gamesPath, cacheGames = True)
+    games = LightGamesFile(gamesPath)
     gameElos = writeGameELOs(games, outputDir)
     print("Done")
 
