@@ -40,10 +40,9 @@ def writeGameELOs(games, outputDir):
         if i % 10000 == 0 and i > 1:
             writePGNdict(sortedPGNs, outputDir)
             del sortedPGNs
+            gc.collect()
             sortedPGNs = {}
 
-        if i % 100000 == 0 and i > 1:
-            gc.collect()
     writePGNdict(sortedPGNs, outputDir)
 
 def main():
