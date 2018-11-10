@@ -34,9 +34,11 @@ def writeGameELOs(games, outputDir):
 
     sortedPGNs = {}
     for i, g in enumerate(games):
-        BlackElo = round(int(g.headers['BlackElo']) + 49, -2)
-        WhiteElo = round(int(g.headers['WhiteElo']) + 49, -2)
-
+        try:
+            BlackElo = round(int(g.headers['BlackElo']) + 49, -2)
+            WhiteElo = round(int(g.headers['WhiteElo']) + 49, -2)
+        except ValueError:
+            
         if BlackElo == WhiteElo and g.headers['Result'] != '*':
             try:
                 sortedPGNs[BlackElo].append(str(g))
