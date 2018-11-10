@@ -30,7 +30,7 @@ def writePGNdict(pgnDict, outputDir):
 
 def writeGameELOs(games, outputDir):
 
-    os.makedirs(outputDir, exist_ok = True)
+    os.makedirs(outputDir, exist_ok = False)
 
     sortedPGNs = {}
     for i, g in enumerate(games):
@@ -38,7 +38,7 @@ def writeGameELOs(games, outputDir):
             BlackElo = round(int(g.headers['BlackElo']) + 49, -2)
             WhiteElo = round(int(g.headers['WhiteElo']) + 49, -2)
         except ValueError:
-            
+            continue
         if BlackElo == WhiteElo and g.headers['Result'] != '*':
             try:
                 sortedPGNs[BlackElo].append(str(g))
