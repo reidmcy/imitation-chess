@@ -21,6 +21,8 @@ class GamesFile(collections.abc.Iterable):
 
     def loadNextGame(self):
         g = chess.pgn.read_game(self.f)
+        if g is None:
+            raise StopIteration
         if self.cache:
             self.games.append(g)
         return g
