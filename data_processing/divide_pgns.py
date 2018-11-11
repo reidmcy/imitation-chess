@@ -26,9 +26,9 @@ class LightGamesFile(object):
             pass
 
 def writePGNdict(pgnDict, outputDir):
-    print("Writing: ", end = '')
+    #print("Writing: ", end = '')
     for i, v in pgnDict.items():
-        print(i, end = ' ')
+        #print(i, end = ' ')
         with open(os.path.join(outputDir, "{:.0f}00.pgn".format(i).rjust(4,'0')), 'a') as f:
             f.write('\n\n'.join(v))
             f.write('\n\n')
@@ -56,9 +56,9 @@ def writeGameELOs(games, outputDir):
         if i % 10000 == 0 and i > 1:
             writePGNdict(sortedPGNs, outputDir)
             sortedPGNs.clear()
-            gc.collect()
 
     writePGNdict(sortedPGNs, outputDir)
+    print()
 
 def processPath(path):
     outputDirName = os.path.basename(path)[:-8]
