@@ -49,10 +49,12 @@ class GamesFile(collections.abc.Iterable):
         except AttributeError:
             pass
 
-def getBoardMoveMap(game):
+def getBoardMoveMap(game, maxMoves = None):
     d = {}
     board = game.board()
-    for move in game.main_line():
+    for i, move in enumerate(game.main_line()):
         d[board.fen()] = move.uci()
         board.push(move)
+        if maxMoves is not None and i > maxMoves:
+            break
     return d
