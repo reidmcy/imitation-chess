@@ -31,7 +31,7 @@ class LightGamesFile(object):
             self.f.close()
         except AttributeError:
             pass
-    @profile
+
     def readNextGame(self):
         self.f.readline()
         ret = {}
@@ -52,7 +52,6 @@ class LightGamesFile(object):
         ret['moves'] = re.findall(moveRegex, self.f.readline())
         return ret
 
-@profile
 def getBoardMoveMap(moveDat, maxNumMoves = None):
     d = {}
     board = chess.Board()
@@ -66,7 +65,6 @@ def getBoardMoveMap(moveDat, maxNumMoves = None):
             break
     return d
 
-@profile
 def fenFile(path):
     inputName = os.path.basename(path)[:-8]
     outputName = os.path.join(outputPath, f"mapping_{inputName}.csv")
