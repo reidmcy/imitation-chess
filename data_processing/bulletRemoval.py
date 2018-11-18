@@ -25,12 +25,20 @@ def cleanPGN(targetPath):
     dirname, filename = os.path.split(os.path.splitext(targetPath)[0])
     outputName = os.path.join(dirname, f"{filename}{outputSuffix}.pgn")
     with open(targetPath) as fin, open(outputName, 'w') as fout:
-        game, isBul = getNextGame(fin)
-        if len(game) < 1:
-            break
-        elif not isBul:
-            fout.write(game)
-
+        i = 0
+        removed = 0
+        while True:
+            game, isBul = getNextGame(fin)
+            if len(game) < 1:
+                break
+            elif not isBul:
+                fout.write(game)
+            else:
+                removed += 1
+            i += 1
+            if i % 10000 == 0:
+                print(f"{str(i).ljust(8)}\tratio: {(i - removed / i):.2f}", end = '\r')
+    print(f"{filename}.pgn to {filename}{outputSuffix}.pgn: ratio {(i - removed / i):.2f} for {i}")
 
 def main():
     for gamesPath in sys.argv[1:]:
