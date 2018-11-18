@@ -24,6 +24,7 @@ def getNextGame(f):
 def cleanPGN(targetPath):
     dirname, filename = os.path.split(os.path.splitext(targetPath)[0])
     outputName = os.path.join(dirname, f"{filename}{outputSuffix}.pgn")
+    eloDir = os.path.split(dirname)[1]
     with open(targetPath) as fin, open(outputName, 'w') as fout:
         i = 0
         removed = 0
@@ -37,8 +38,8 @@ def cleanPGN(targetPath):
                 removed += 1
             i += 1
             if i % 10000 == 0:
-                print(f"{str(i).ljust(8)}\tratio: {(i - removed) / i:.2f}", end = '\r')
-    print(f"{filename}.pgn to {filename}{outputSuffix}.pgn: ratio {(i - removed )/ i:.2f} for {i}")
+                print(f"eloDir}\t{str(i).ljust(8)}\tratio: {(i - removed) / i:.2f}", end = '\r')
+    print(f"{eloDir}\t{filename}.pgn to {filename}{outputSuffix}.pgn: ratio {(i - removed )/ i:.2f} for {i}")
 
 def main():
     for gamesPath in sys.argv[1:]:
