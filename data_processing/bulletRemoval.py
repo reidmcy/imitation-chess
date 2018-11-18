@@ -24,7 +24,7 @@ def getNextGame(f):
 def cleanPGN(targetPath):
     dirname, filename = os.path.split(os.path.splitext(targetPath)[0])
     outputName = os.path.join(dirname, f"{filename}{outputSuffix}.pgn")
-    eloDir = os.path.split(dirname)[1]
+    eloDir = os.path.basename(dirname)
     with open(targetPath) as fin, open(outputName, 'w') as fout:
         i = 0
         removed = 0
