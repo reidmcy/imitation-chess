@@ -37,8 +37,8 @@ def cleanPGN(targetPath):
                 removed += 1
             i += 1
             if i % 10000 == 0:
-                print(f"{str(i).ljust(8)}\tratio: {(i - removed / i):.2f}", end = '\r')
-    print(f"{filename}.pgn to {filename}{outputSuffix}.pgn: ratio {(i - removed / i):.2f} for {i}")
+                print(f"{str(i).ljust(8)}\tratio: {(i - removed) / i:.2f}", end = '\r')
+    print(f"{filename}.pgn to {filename}{outputSuffix}.pgn: ratio {(i - removed )/ i:.2f} for {i}")
 
 def main():
     for gamesPath in sys.argv[1:]:
