@@ -5,7 +5,7 @@
 engine1=1100
 engine2=1200
 
-weightsDir="/Users/Reid/Documents/School/Toronto/lab/Chess/imitation_chess/networks/"
+weightsDir="/w/225/reidmcy/chess/imitation-chess/networks"
 
 
 #No time control, but only look at 800 new nodes a round
