@@ -1,0 +1,16 @@
+[
+  {
+    "name": "hai-1100",
+    "command": "lc0 -t 2 -w ../networks/1100-64x6-140000.pb.gz",
+    "protocol": "uci",
+    "workingDirectory" : "/Users/Reid/Documents/School/Toronto/lab/Chess/imitation_chess/tournaments",
+    "ponder" : false,
+},
+  {
+    "name": "hai-1200",
+    "command": "lc0 -t 2 -w ../networks/1200-64x6-140000.pb.gz",
+    "protocol": "uci",
+    "workingDirectory" : "/Users/Reid/Documents/School/Toronto/lab/Chess/imitation_chess/tournaments",
+    "ponder" : false,
+},
+]
