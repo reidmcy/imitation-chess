@@ -31,9 +31,9 @@ def processMapping(target):
                 counts[l['board']][l['move']] += 1
             except KeyError:
                 counts[l['board']] = {l['move'] : 1}
-            if i % 10000:
+            if i % 10000 == 0:
                 print(f"{i}: boards {len(counts)}", end = '\r')
-            if i % 1000000:
+            if i % 1000000 == 0:
                 writeBoard(counts, outputName, minCount)
     print('\nDone')
 
