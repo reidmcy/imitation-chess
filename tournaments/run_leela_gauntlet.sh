@@ -3,7 +3,7 @@
 # Add -debug to see engine output
 
 engine1="${1}"
-times="10:00/49"
+times="10:00/40"
 
 weightsDir="/w/225/reidmcy/chess/imitation-chess/networks"
 
