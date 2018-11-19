@@ -3,6 +3,7 @@ import chess
 import sys
 import collections
 import json
+import os.path
 
 target = sys
 
