@@ -10,7 +10,7 @@ leelasDir="/w/225/reidmcy/chess/imitation-chess/networks/leela_weights"
 
 #No time control, but only look at 800 new nodes a round
 
-for engine2Path in "${leelasDir}/*.gz";
+for engine2Path in /w/225/reidmcy/chess/imitation-chess/networks/leela_weights/*.gz;
 do
 
 echo $engine2Path
