@@ -13,8 +13,11 @@ leelasDir="/w/225/reidmcy/chess/imitation-chess/networks/leela_weights"
 for engine2Path in "${leelasDir}/*.gz";
 do
 
+echo $engine2Path
+
 engine2Name=v=`python -c "import os.path;print(os.path.basename('${engine2Path}').split('.')[0])"`
 
+echo $engine2Name
 
 cutechess-cli -rounds 100 -tournament gauntlet -concurrency 4 -event "hai ${1} v hai ${2}"\
  -pgnout "hai-${engine1}-v-leela-${engine2Name}.pgn" \
