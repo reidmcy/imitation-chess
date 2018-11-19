@@ -15,7 +15,7 @@ do
 
 echo $engine2Path
 
-engine2Name=v=`python -c "import os.path;print(os.path.basename('${engine2Path}').split('.')[0])"`
+engine2Name=`python -c "import os.path;print(os.path.basename('${engine2Path}').split('.')[0])"`
 
 echo $engine2Name
 
