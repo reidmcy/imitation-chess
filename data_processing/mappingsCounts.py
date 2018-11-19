@@ -28,10 +28,11 @@ def processMapping(target):
         reader = csv.DictReader(fin)
         counts = collections.defaultdict(dict)
         for i, l in enumerate(reader):
+            b = ' '.join(l['board'].split(' ')[:2])
             try:
-                counts[l['board']][l['move']] += 1
+                counts[b][l['move']] += 1
             except KeyError:
-                counts[l['board']][l['move']] = 1
+                counts[b][l['move']] = 1
             if i % 10000 == 0:
                 print(f"{i}: boards {len(counts)}", end = '\r')
             if i % 10000000 == 0:
