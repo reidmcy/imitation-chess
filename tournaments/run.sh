@@ -15,5 +15,3 @@ cutechess-cli -rounds 100 -tournament gauntlet -concurrency 4 \
  -engine name="hai-${engine1}" cmd=lc0 arg="--threads=1" arg="--noise" arg="--weights=${weightsDir}/${engine1}-64x6-140000.pb.gz" arg="--playouts=800" arg="--noponder"\
  -engine name="hai-${engine2}" cmd=lc0 arg="--threads=1" arg="--noise" arg="--weights=${weightsDir}/${engine2}-64x6-140000.pb.gz" arg="--playouts=800" arg="--noponder"\
  -each proto=uci tc=inf
-
-mv -v results.pgn "$NXT-vs-$CUR.pgn"
