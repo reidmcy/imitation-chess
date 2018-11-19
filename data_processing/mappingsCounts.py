@@ -17,6 +17,7 @@ def writeBoard(boards, path, count):
         for b, d in boards.items():
             if sum(d.values()) >= count:
                 json.dump({'board' : b, 'counts' : d}, f)
+                f.write('\n')
 
 
 def processMapping(target):
@@ -33,7 +34,7 @@ def processMapping(target):
                 counts[l['board']] = {l['move'] : 1}
             if i % 10000 == 0:
                 print(f"{i}: boards {len(counts)}", end = '\r')
-            if i % 1000000 == 0:
+            if i % 10000000 == 0:
                 writeBoard(counts, outputName, minCount)
     print('\nDone')
 
