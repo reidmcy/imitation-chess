@@ -40,7 +40,7 @@ do
     arg="--noise" arg="--weights=${engine1Path}" arg="--no-ponder"\
     -engine name="stockfish-${engine2Level}" \
     cmd=stockfish initstr="setoption name Ponder value False\nsetoption name Ponder value False\nsetoption name Skill Level value ${engine2Level}"\
-     -each proto=uci tc=$time 2>&1 | tee -a "${outputsDir}/hai-${engine1Name}-v-stockfish.txt"
+     -each proto=uci tc=$times 2>&1 | tee -a "${outputsDir}/hai-${engine1Name}-v-stockfish.txt"
 
 done
 
@@ -57,7 +57,7 @@ do
     -engine name="hai-${engine1Name}" cmd=lc0 arg="--threads=1" \
     arg="--noise" arg="--weights=${engine1Path}" arg="--no-ponder"\
      -engine name="leela-${engine2Name}" cmd=lc0 arg="--threads=1" arg="--noise" arg="--weights=${engine2Path}" arg="--no-ponder"\
-     -each proto=uci tc="${times}" 2>&1 | tee -a "${outputsDir}/hai-${engine1Name}-v-leela.txt"
+     -each proto=uci tc=$times 2>&1 | tee -a "${outputsDir}/hai-${engine1Name}-v-leela.txt"
  done
 
 echo "Done"
