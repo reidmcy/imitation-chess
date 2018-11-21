@@ -77,18 +77,25 @@ def fenFile(path):
         f.write("board,move,game,BlackElo,WhiteElo\n")
         i = 0
         while True:
-            gDat = games.readNextGame()
+            try:
+                gDat = games.readNextGame()
+            except RuntimeError:
+                break
             d = getBoardMoveMap(gDat['moves'], maxNumMoves = maxMoves)
-            gameID = gDat['Site']
-            BlackElo = gDat['BlackElo']
-            WhiteElo = gDat['WhiteElo']
+            try:
+                gameID = gDat['Site']
+                BlackElo = gDat['BlackElo']
+                WhiteElo = gDat['WhiteElo']
+            except KeyError as e:
+                print()
+                print(e)
+                continue
             for k, v in d.items():
                 f.write(f"{k},{v},{gameID},{BlackElo},{WhiteElo}\n")
             i += 1
             if i % 1000 == 0:
                 print(f"{i}: {gameID}")
                 f.flush()
-
 
     print("Done: ", path)
 
