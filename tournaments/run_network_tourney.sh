@@ -24,7 +24,7 @@ outputsDir="hai_games/${engine1Name}"
 
 mkdir -p hai_games/
 
-mkdir -p outputsDir
+mkdir -p $outputsDir
 
 echo "Running against stockfish"
 
