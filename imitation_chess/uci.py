@@ -51,9 +51,9 @@ class EngineHandler(object):
     def __repr__(self):
         return f"<EngineHandler {self.engine.name} {self.weightsPath}>"
 
-    def getBoardProbs(self, board, movetime = 100):
+    def getBoardProbs(self, board, movetime = 1000, nodes = 1000):
         self.engine.ucinewgame()
         self.engine.position(board)
-        moves = self.engine.go(movetime = movetime)
+        moves = self.engine.go(movetime = movetime, nodes = nodes)
         probs = self.info_handler.info['probs']
         return moves, probs

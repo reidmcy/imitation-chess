@@ -13,6 +13,8 @@ ouputDir = '../data/early_games'
 
 num_engines = 8
 
+nodesPerBoard = 1000
+
 def jsonOutput(results, board):
     bestmove = str(results[0].bestmove)
     ponderedmove = str(results[0].ponder)
@@ -23,7 +25,7 @@ def EngineProcess(enginePath, boards, Q):
     engine = imitation_chess.EngineHandler('lc0', enginePath, threads = 1)
     for b in boards:
         board = imitation_chess.fen(b)
-        ret = engine.getBoardProbs(board, movetime = 10000 * 10)
+        ret = engine.getBoardProbs(board, movetime = 10000 * 30, nodes = nodesPerBoard)
         Q.put(jsonOutput(ret, b))
     Q.put(False)
     return
