@@ -50,7 +50,7 @@ def main():
     for i, b in enumerate(sortedBoards):
         splitBoards[i % num_engines].append(b['board'])
 
-    print({k : len(v) for k, v in splitBoards.items})
+    print({k : len(v) for k, v in splitBoards.items()})
 
 
 if __name__ == '__main__':
