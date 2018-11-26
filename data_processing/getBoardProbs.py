@@ -1,7 +1,8 @@
 import imitation_chess
 
 import json
-
+import os
+import os.path
 
 import sys
 import multiprocessing
