@@ -36,8 +36,10 @@ def main():
     if not os.path.isfile(targetNetwork):
         raise RuntimeError("Invalid network path")
 
-    print(f"Starting on: {targetNetwork}")
+
     outputName = os.path.join(ouputDir, os.path.basename(targetNetwork)[:-6])
+
+    print(f"Starting on: {targetNetwork} to {outputName}")
 
     os.makedirs(ouputDir, exist_ok = True)
 
@@ -52,7 +54,7 @@ def main():
     for i, b in enumerate(sortedBoards):
         splitBoards[i % num_engines].append(b['board'])
 
-    print("Split into:" {k : len(v) for k, v in splitBoards.items()})
+    print("Split into:", {k : len(v) for k, v in splitBoards.items()})
 
     processes = []
     mainQ = multiprocessing.Queue()
