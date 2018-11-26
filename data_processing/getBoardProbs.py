@@ -37,7 +37,7 @@ def main():
         raise RuntimeError("Invalid network path")
 
 
-    outputName = os.path.join(ouputDir, os.path.basename(targetNetwork)[:-6])
+    outputName = os.path.join(ouputDir, os.path.basename(targetNetwork)[:-6] + '.json')
 
     print(f"Starting on: {targetNetwork} to {outputName}")
 
