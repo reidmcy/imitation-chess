@@ -33,7 +33,7 @@ class ProbInfoHandler(chess.uci.InfoHandler):
     def string(self, string):
         """Receives a string the engine wants to display."""
         prob = re.search(probRe, string).group(1)
-        self.info["probs"].append((string[:4], float(prob[:-1])))
+        self.info["probs"].append(string)
 
 class EngineHandler(object):
     def __init__(self, engine, weights, threads = 2):
