@@ -37,7 +37,7 @@ def main():
     if not os.path.isfile(targetNetwork):
         raise RuntimeError("Invalid network path")
 
-    outputName = os.path.join(ouputDir, os.path.basename(path)[:-6])
+    outputName = os.path.join(ouputDir, os.path.basename(targetNetwork)[:-6])
 
     os.makedir(ouputDir, exist_ok = True)
 
