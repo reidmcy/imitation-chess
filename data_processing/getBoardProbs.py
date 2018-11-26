@@ -39,7 +39,7 @@ def main():
 
     outputName = os.path.join(ouputDir, os.path.basename(targetNetwork)[:-6])
 
-    os.makedir(ouputDir, exist_ok = True)
+    os.makedirs(ouputDir, exist_ok = True)
 
     with open(boardStates) as f:
         boards = [json.loads(l) for l in f]
