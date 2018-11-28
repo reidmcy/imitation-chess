@@ -79,7 +79,7 @@ def genHaiKLs(path):
     df_kl['comp_ns'] = comp_ns
     df_kl = df_kl.sort_values('kl_n', ascending=False)
 
-    df_kl['kl_prob', 'human_probs', 'comp_probs', 'comp_ns', 'kl_n'].to_csv(os.path.basename(path)[:-5] + '.csv')
+    df_kl[['kl_prob', 'human_probs', 'comp_probs', 'comp_ns', 'kl_n']].to_csv(os.path.basename(path)[:-5] + '.csv')
 
 def main():
 
