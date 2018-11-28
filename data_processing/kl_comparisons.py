@@ -74,9 +74,9 @@ def genHaiKLs(path):
     df_kl = df.loc[boards].copy()
     df_kl['kl_prob'] = kl_prob_vals
     df_kl['kl_n'] = kl_n_vals
-    df_kl['human_probs'] = human_probs
-    df_kl['comp_probs'] = comp_probs
-    df_kl['comp_ns'] = comp_ns
+    df_kl['human_probs'] = list(human_probs)
+    df_kl['comp_probs'] = list(comp_probs)
+    df_kl['comp_ns'] = list(comp_ns)
     df_kl = df_kl.sort_values('kl_n', ascending=False)
 
     df_kl[['kl_prob', 'human_probs', 'comp_probs', 'comp_ns', 'kl_n']].to_csv(os.path.basename(path)[:-5] + '.csv')
