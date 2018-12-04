@@ -153,7 +153,7 @@ def playTourney(E1str, E2str, num_rounds):
             E2 = stringToEngine(E2str)
             continue
         else:
-            games.append(pgnGame)
+            games.append(str(pgnGame))
             i += 1
     print(f"Done {num_rounds} games of {E1.name} vs {E2.name}")
 
