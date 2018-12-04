@@ -50,6 +50,8 @@ class TourneyEngine(object):
             self.engine.quit()
         except chess.engine.EngineTerminatedException:
             pass
+        except ValueError:
+            pass
 
 class _MoveHolder(object):
     def __init__(self, move):
@@ -130,21 +132,29 @@ def playGame(E1, E2, round = None):
         pgnGame.headers['Round'] = round
     return pgnGame
 
-def playTourney(E1, E2, num_rounds, event = '', progress = False):
-    print(E1, 'vs', E2)
-    if isinstance(E1, str):
-        E1 = stringToEngine(E1)
+def playTourney(E1str, E2str, num_rounds):
+    E1 = stringToEngine(E1str)
 
-    if isinstance(E2, str):
-        E2 = stringToEngine(E2)
-    players = [E1, E2]
+    E2 = stringToEngine(E2str)
+
     games = []
-    for i in range(num_rounds):
-        if progress:
-            print(f"Starting round {i} {players[0].name} vs {players[1].name}", end = '\r', flush = True)
-        pgnGame = playGame(*players, round = i + 1)
-        games.append(pgnGame)
-        players = players[::-1]
+    i = 0
+    while i < num_rounds:
+        print(f"Starting round {i} {players[0].name} vs {players[1].name}", flush = True)
+        try:
+            if i % 2 == 0:
+                players = [E1, E2]
+            else:
+                players = [E2, E1]
+            pgnGame = playGame(*players, round = i + 1)
+        except BrokenPipeError:
+            print("BrokenPipe: {E1.name} v {E2.name}")
+            E1 = stringToEngine(E1str)
+            E2 = stringToEngine(E2str)
+            continue
+        else:
+            games.append(pgnGame)
+            i += 1
     print(f"Done {num_rounds} games of {players[0].name} vs {players[1].name}")
 
     return games

@@ -4,6 +4,8 @@ import os
 import multiprocessing
 
 nProcesses = 64
+num_games = 100
+
 
 resultsDir = 'all_games'
 
@@ -15,10 +17,11 @@ def main():
     opponents = []
     for i, e1 in enumerate(engines):
         for e2 in engines[i:]:
-            opponents.append((e1, e2, 1))
+            opponents.append((e1, e2, num_games))
 
     with multiprocessing.Pool(processes = nProcesses) as pool:
         games = pool.starmap(imitation_chess.playTourney, opponents)
+        print("Writing results")
         for (e1, e2, _), g in zip(opponents, games):
             e1Name = json.loads(e1)['name']
             e2Name = json.loads(e2)['name']
@@ -26,6 +29,7 @@ def main():
                 for game in games:
                     f.write(str(g))
                     f.write('\n')
+    print("Done")
 
 if __name__ == '__main__':
     main()
