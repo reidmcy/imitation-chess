@@ -46,7 +46,10 @@ class TourneyEngine(object):
         return moves.bestmove
 
     def __del__(self):
-        self.engine.quit()
+        try:
+            self.engine.quit()
+        except chess.engine.EngineTerminatedException:
+            pass
 
 class _MoveHolder(object):
     def __init__(self, move):
@@ -142,7 +145,7 @@ def playTourney(E1, E2, num_rounds, event = '', progress = False):
         pgnGame = playGame(*players, round = i + 1)
         games.append(pgnGame)
         players = players[::-1]
-    print("Done {num_rounds} games of {players[0].name} vs {players[1].name}")
+    print(f"Done {num_rounds} games of {players[0].name} vs {players[1].name}")
 
     return games
 
