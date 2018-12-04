@@ -3,7 +3,7 @@ import imitation_chess
 import os
 import multiprocessing
 
-nProcesses = 64
+nProcesses = 16#64
 num_games = 1
 
 
