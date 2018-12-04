@@ -44,6 +44,11 @@ class TourneyEngine(object):
     def __del__(self):
         self.engine.quit()
 
+class _MoveHolder(object):
+    def __init__(self, move):
+        self.bestmove = move
+
+
 class _RandomEngineBackend(object):
     def __init__(self):
         self.nextMove = None
@@ -52,7 +57,7 @@ class _RandomEngineBackend(object):
         self.nextMove = random.choice(list(board.legal_moves))
 
     def go(self, **kwargs):
-        return self.nextMove
+        return _MoveHolder(self.nextMove)
 
     def quit(self):
         pass
