@@ -140,7 +140,7 @@ def playTourney(E1str, E2str, num_rounds):
     games = []
     i = 0
     while i < num_rounds:
-        print(f"Starting round {i} {players[0].name} vs {players[1].name}", flush = True)
+        print(f"Starting round {i} {E1.name} vs {E2.name}", flush = True)
         try:
             if i % 2 == 0:
                 players = [E1, E2]
@@ -155,7 +155,7 @@ def playTourney(E1str, E2str, num_rounds):
         else:
             games.append(pgnGame)
             i += 1
-    print(f"Done {num_rounds} games of {players[0].name} vs {players[1].name}")
+    print(f"Done {num_rounds} games of {E1.name} vs {E2.name}")
 
     return games
 
