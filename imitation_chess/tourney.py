@@ -8,6 +8,7 @@ import random
 import json
 import os
 import os.path
+import time
 import datetime
 
 tz = pytz.timezone('Canada/Eastern')
@@ -132,7 +133,8 @@ def playGame(E1, E2, round = None):
         pgnGame.headers['Round'] = round
     return pgnGame
 
-def playTourney(E1str, E2str, num_rounds):
+def playTourney(E1str, E2str, num_rounds, resultsDir):
+    tstart = time.time()
     E1 = stringToEngine(E1str)
 
     E2 = stringToEngine(E2str)
@@ -153,9 +155,18 @@ def playTourney(E1str, E2str, num_rounds):
             E2 = stringToEngine(E2str)
             continue
         else:
-            games.append(str(pgnGame))
+            pgnStr = str(pgnGame)
+
+            e1Name = json.loads(E1str)['name']
+            e2Name = json.loads(E2str)['name']
+            with open(os.path.join(resultsDir, f"{e1Name}-{e2Name}.pgn"), 'a') as f:
+                for game in games:
+                    f.write(pgnStr)
+                    f.write('\n')
+
+            games.append(pgnStr)
             i += 1
-    print(f"Done {num_rounds} games of {E1.name} vs {E2.name}")
+    print(f"Done {num_rounds} games in {time.time() - tstart : .2f}s of {E1.name} vs {E2.name}")
 
     return games
 
