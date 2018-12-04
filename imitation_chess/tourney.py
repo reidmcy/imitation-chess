@@ -4,6 +4,7 @@ import chess.pgn
 
 import pytz
 
+import random
 import os
 import os.path
 import datetime
@@ -20,7 +21,6 @@ networksDir = '/u/reidmcy/w/chess/imitation-chess/networks'
 stockfish_SKILL = [0, 3, 6, 10, 14, 16, 18, 20]
 stockfish_MOVETIMES = [50, 100, 150, 200, 300, 400, 500, 1000]
 stockfish_DEPTHS = [1, 1, 2, 3, 5, 8, 13, 22]
-
 
 class TourneyEngine(object):
     def __init__(self, engine, name, movetime = None, nodes = None, depth = None):
@@ -43,6 +43,26 @@ class TourneyEngine(object):
 
     def __del__(self):
         self.engine.quit()
+
+class _RandomEngineBackend(object):
+    def __init__(self):
+        self.nextMove = None
+
+    def position(self, board):
+        self.nextMove = random.choice(list(board.legal_moves))
+
+    def go(self, **kwargs):
+        return self.nextMove
+
+    def quit(self):
+        pass
+
+    def ucinewgame(self):
+        pass
+
+class RandomEngine(TourneyEngine):
+    def __init__(self, engine = None, name = 'random', movetime = None, nodes = None, depth = None):
+        super().__init__(_RandomEngineBackend(), name, movetime = movetime, nodes = nodes)
 
 class StockfishEngine(TourneyEngine):
     def __init__(self, skill = 20, movetime = _movetime, depth = 30, sfPath = _stockfishPath):
