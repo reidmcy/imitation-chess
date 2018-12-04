@@ -17,7 +17,7 @@ def main():
         for e2 in engines[i:]:
             opponents.append((e1, e2, 1))
 
-    with multiprocessing.pool(processes = nProcesses) as pool:
+    with multiprocessing.Pool(processes = nProcesses) as pool:
         games = pool.starmap(imitation_chess.playTourney, opponents)
         for (e1, e2, _), g in zip(opponents, games):
             e1Name = json.loads(e1)['name']

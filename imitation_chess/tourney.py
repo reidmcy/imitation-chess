@@ -128,6 +128,7 @@ def playGame(E1, E2, round = None):
     return pgnGame
 
 def playTourney(E1, E2, num_rounds, event = '', progress = False):
+    print(E1, 'vs', E2)
     if isinstance(E1, str):
         E1 = stringToEngine(E1)
 
