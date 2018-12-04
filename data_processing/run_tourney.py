@@ -21,7 +21,7 @@ def main():
             opponents.append((e1, e2, num_games, resultsDir))
 
     #stockfish takes a while at high skill
-    opponents = opponents[:10]
+    opponents = opponents[::-1]
 
     for i in range(1000):
         with multiprocessing.Pool(processes = nProcesses) as pool:
