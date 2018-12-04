@@ -128,6 +128,11 @@ def playGame(E1, E2, round = None):
     return pgnGame
 
 def playTourney(E1, E2, num_rounds, event = '', progress = False):
+    if isinstance(E1, str):
+        E1 = stringToEngine(E1)
+
+    if isinstance(E2, str):
+        E2 = stringToEngine(E2)
     players = [E1, E2]
     games = []
     for i in range(num_rounds):
@@ -141,7 +146,7 @@ def playTourney(E1, E2, num_rounds, event = '', progress = False):
     return games
 
 def listRandoms():
-    return [json.dumps({'engine' : 'random', 'config' : {}})]
+    return [json.dumps({'engine' : 'random', 'config' : {}, 'name' : 'random'})]
 
 def listLeelas(configs = None):
     if configs is None:
@@ -152,7 +157,7 @@ def listLeelas(configs = None):
             v = {'weightsPath' : e.path}
             v.update(configs)
             vals.append(v)
-    return [json.dumps({'engine' : 'leela', 'config' : v}) for v in vals]
+    return [json.dumps({'engine' : 'leela', 'config' : v, 'name' : f"leela-{os.path.basename(v['weightsPath']).split('-')[1]}"}) for v in vals]
 
 def listHaibrids(configs = None):
     if configs is None:
@@ -163,7 +168,7 @@ def listHaibrids(configs = None):
             v = {'weightsPath' : e.path}
             v.update(configs)
             vals.append(v)
-    return [json.dumps({'engine' : 'hiabrid', 'config' : v}) for v in vals]
+    return [json.dumps({'engine' : 'hiabrid', 'config' : v, 'name' : f"hiabrid-{os.path.basename(v['weightsPath']).split('-')[0]}"}) for v in vals]
 
 def listStockfishs():
     vals = []
@@ -173,7 +178,7 @@ def listStockfishs():
             'movetime' : m,
             'depth' : d,
         })
-    return [json.dumps({'engine' : 'stockfish', 'config' : v}) for v in vals]
+    return [json.dumps({'engine' : 'stockfish', 'config' : v, 'name' : f"stockfish-{v['skill']}s{v['movetime']}m{v['depth']}d"}) for v in vals]
 
 def stringToEngine(s):
     dat = json.loads(s)
