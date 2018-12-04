@@ -4,7 +4,7 @@ import os
 import multiprocessing
 
 nProcesses = 64
-num_games = 100
+num_games = 1
 
 
 resultsDir = 'all_games'
