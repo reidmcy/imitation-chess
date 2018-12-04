@@ -34,6 +34,9 @@ class TourneyEngine(object):
     def __repr__(self):
         return f"<{self.name}>"
 
+    def __str__(self):
+        return self.name
+
     def newgame(self):
         self.engine.ucinewgame()
 
@@ -140,25 +143,25 @@ def playTourney(E1, E2, num_rounds, event = '', progress = False):
 def listRandoms():
     return [json.dumps({'engine' : 'random', 'config' : {}})]
 
-def listLeelas(confs = None):
-    if confs is None:
-        confs = {}
+def listLeelas(configs = None):
+    if configs is None:
+        configs = {}
     vals = []
     for e in os.scandir(os.path.join(networksDir, 'leela_weights')):
         if e.name.endswith('pb.gz'):
             v = {'weightsPath' : e.path}
-            v.update(confs)
+            v.update(configs)
             vals.append(v)
     return [json.dumps({'engine' : 'leela', 'config' : v}) for v in vals]
 
-def listHaibrids(confs = None):
-    if confs is None:
-        confs = {}
+def listHaibrids(configs = None):
+    if configs is None:
+        configs = {}
     vals = []
     for e in os.scandir(os.path.join(networksDir)):
         if e.name.endswith('-64x6-140000.pb.gz'):
             v = {'weightsPath' : e.path}
-            v.update(confs)
+            v.update(configs)
             vals.append(v)
     return [json.dumps({'engine' : 'hiabrid', 'config' : v}) for v in vals]
 
@@ -172,7 +175,7 @@ def listStockfishs():
         })
     return [json.dumps({'engine' : 'stockfish', 'config' : v}) for v in vals]
 
-def engineStringToEngine(s):
+def stringToEngine(s):
     dat = json.loads(s)
     if dat['engine'] == 'stockfish':
         return StockfishEngine(**dat['config'])
@@ -193,5 +196,5 @@ def playStockfishGauntlet(E, num_rounds):
         pgns += p
     return pgns
 
-def listAllEngines():
-    return listHaibrids() +listLeelas() + listStockfishs() + listRandoms()
+def listAllEngines(hiabridConfig = None, leelaConfig = None):
+    return listHaibrids(configs = hiabridConfig) +listLeelas(configs = leelaConfig) + listStockfishs() + listRandoms()
