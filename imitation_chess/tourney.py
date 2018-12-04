@@ -5,6 +5,7 @@ import chess.pgn
 import pytz
 
 import random
+import json
 import os
 import os.path
 import datetime
@@ -82,21 +83,22 @@ class StockfishEngine(TourneyEngine):
         super().__init__(engine, f's{skill} d{depth} {movetime}', movetime = movetime, depth = depth)
 
 class LC0Engine(TourneyEngine):
-    def __init__(self, weightsPath, nodes = None, movetime = _movetime, isHai = True, lc0Path = _lc0Path):
+    def __init__(self, weightsPath = None, nodes = None, movetime = _movetime, isHai = True, lc0Path = _lc0Path, threads = 1):
         self.weightsPath = weightsPath
         self.lc0Path = lc0Path
         self.isHai = isHai
-        engine = chess.uci.popen_engine([self.lc0Path, f'--weights={weightsPath}'])
+        self.threads = threads
+        engine = chess.uci.popen_engine([self.lc0Path, f'--weights={weightsPath}', f'--threads={threads}'])
 
         super().__init__(engine, f"{os.path.basename(self.weightsPath)[:-6]} {movetime}", movetime = movetime, nodes = nodes)
 
 class HaibridEngine(LC0Engine):
-    def __init__(self, weightsPath, **kwargs):
-        super().__init__(weightsPath, **kwargs, isHai = True)
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs, isHai = True)
 
 class LeelaEngine(LC0Engine):
-    def __init__(self, weightsPath, **kwargs):
-        super().__init__(weightsPath, **kwargs, isHai = False)
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs, isHai = False)
 
 def playGame(E1, E2, round = None):
 
@@ -135,19 +137,30 @@ def playTourney(E1, E2, num_rounds, event = '', progress = False):
 
     return games
 
-def listLeelas():
+def listRandoms():
+    return [json.dumps({'engine' : 'random', 'config' : {}})]
+
+def listLeelas(confs = None):
+    if confs is None:
+        confs = {}
     vals = []
     for e in os.scandir(os.path.join(networksDir, 'leela_weights')):
         if e.name.endswith('pb.gz'):
-            vals.append(e.path)
-    return vals
+            v = {'weightsPath' : e.path}
+            v.update(confs)
+            vals.append(v)
+    return return [json.dumps({'engine' : 'leela', 'config' : v}) for v in vals]
 
-def listHaibrids():
+def listHaibrids(confs = None):
+    if confs is None:
+        confs = {}
     vals = []
     for e in os.scandir(os.path.join(networksDir)):
         if e.name.endswith('-64x6-140000.pb.gz'):
-            vals.append(e.path)
-    return vals
+            v = {'weightsPath' : e.path}
+            v.update(confs)
+            vals.append(v)
+    return return [json.dumps({'engine' : 'hiabrid', 'config' : v}) for v in vals]
 
 def listStockfishs():
     vals = []
@@ -157,4 +170,25 @@ def listStockfishs():
             'movetime' : m,
             'depth' : d,
         })
-    return vals
+    return [json.dumps({'engine' : 'stockfish', 'config' : v}) for v in vals]
+
+def engineStringToEngine(s):
+    dat = json.loads(s)
+    if dat['engine'] == 'stockfish':
+        return StockfishEngine(**dat['config'])
+    elif dat['engine'] == 'hiabrid':
+        return HaibridEngine(**dat['config'])
+    elif dat['engine'] == 'leela':
+        return LeelaEngine(**dat['config'])
+    elif dat['engine'] == 'random':
+        return RandomEngine(**dat['config'])
+    else:
+        raise RuntimeError(f"Invalid config: {s}")
+
+def playStockfishGauntlet(E, num_rounds):
+    pgns = []
+    for config in listStockfishs():
+        SF = StockfishEngine(**config)
+        p = playTourney(E, SF)
+        pgns += p
+    return pgns
