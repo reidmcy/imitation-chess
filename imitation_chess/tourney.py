@@ -192,3 +192,6 @@ def playStockfishGauntlet(E, num_rounds):
         p = playTourney(E, SF)
         pgns += p
     return pgns
+
+def listAllEngines():
+    return listHaibrids() +listLeelas() + listStockfishs() + listRandoms()
