@@ -162,7 +162,7 @@ def playTourney(E1str, E2str, num_rounds, resultsDir):
             with open(os.path.join(resultsDir, f"{e1Name}-{e2Name}.pgn"), 'a') as f:
                 for game in games:
                     f.write(pgnStr)
-                    f.write('\n')
+                    f.write('\n\n')
 
             games.append(pgnStr)
             i += 1
