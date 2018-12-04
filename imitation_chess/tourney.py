@@ -149,7 +149,7 @@ def listLeelas(confs = None):
             v = {'weightsPath' : e.path}
             v.update(confs)
             vals.append(v)
-    return return [json.dumps({'engine' : 'leela', 'config' : v}) for v in vals]
+    return [json.dumps({'engine' : 'leela', 'config' : v}) for v in vals]
 
 def listHaibrids(confs = None):
     if confs is None:
@@ -160,7 +160,7 @@ def listHaibrids(confs = None):
             v = {'weightsPath' : e.path}
             v.update(confs)
             vals.append(v)
-    return return [json.dumps({'engine' : 'hiabrid', 'config' : v}) for v in vals]
+    return [json.dumps({'engine' : 'hiabrid', 'config' : v}) for v in vals]
 
 def listStockfishs():
     vals = []
