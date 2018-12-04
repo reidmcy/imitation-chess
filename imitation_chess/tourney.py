@@ -157,7 +157,7 @@ def listLeelas(configs = None):
             v = {'weightsPath' : e.path}
             v.update(configs)
             vals.append(v)
-    return [json.dumps({'engine' : 'leela', 'config' : v, 'name' : f"leela-{os.path.basename(v['weightsPath']).split('-')[1]}"}) for v in vals]
+    return [json.dumps({'engine' : 'leela', 'config' : v, 'name' : f"leela_{os.path.basename(v['weightsPath']).split('-')[1]}"}) for v in vals]
 
 def listHaibrids(configs = None):
     if configs is None:
@@ -168,7 +168,7 @@ def listHaibrids(configs = None):
             v = {'weightsPath' : e.path}
             v.update(configs)
             vals.append(v)
-    return [json.dumps({'engine' : 'hiabrid', 'config' : v, 'name' : f"hiabrid-{os.path.basename(v['weightsPath']).split('-')[0]}"}) for v in vals]
+    return [json.dumps({'engine' : 'hiabrid', 'config' : v, 'name' : f"hiabrid_{os.path.basename(v['weightsPath']).split('-')[0]}"}) for v in vals]
 
 def listStockfishs():
     vals = []
@@ -178,7 +178,7 @@ def listStockfishs():
             'movetime' : m,
             'depth' : d,
         })
-    return [json.dumps({'engine' : 'stockfish', 'config' : v, 'name' : f"stockfish-{v['skill']}s{v['movetime']}m{v['depth']}d"}) for v in vals]
+    return [json.dumps({'engine' : 'stockfish', 'config' : v, 'name' : f"stockfish_{v['skill']}s_{v['movetime']}m_{v['depth']}d"}) for v in vals]
 
 def stringToEngine(s):
     dat = json.loads(s)
