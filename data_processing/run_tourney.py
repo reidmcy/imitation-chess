@@ -4,7 +4,7 @@ import os
 import json
 import multiprocessing
 
-nProcesses = 48
+nProcesses = 86
 num_games = 10
 
 
