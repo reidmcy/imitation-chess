@@ -4,11 +4,11 @@ import os
 import json
 import multiprocessing
 
-nProcesses = 20
+nProcesses = 48
 num_games = 10
 
 
-resultsDir = 'all_games'
+resultsDir = 'all_games_ada'
 
 def main():
 
