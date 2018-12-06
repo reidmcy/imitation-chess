@@ -5,7 +5,7 @@ import json
 import multiprocessing
 
 nProcesses = 86
-num_games = 100
+num_games = 10
 num_leelas = 12
 
 resultsDir = 'hairbrid_games_ada'
@@ -30,9 +30,9 @@ def main():
     #stockfish takes a while at high skill
     #opponents = opponents[::-1]
 
-    for i in range(1000):
+    for i in range(100):
         with multiprocessing.Pool(processes = nProcesses) as pool:
-            games = pool.starmap(imitation_chess.playTourney, opponents)
+            games = pool.starmap(imitation_chess.playTourney, opponents*1000)
             print("Done circuit")
     print("Done")
 
