@@ -195,6 +195,20 @@ def listHaibrids(configs = None):
             vals.append(v)
     return [json.dumps({'engine' : 'hiabrid', 'config' : v, 'name' : f"hiabrid_{os.path.basename(v['weightsPath']).split('-')[0]}"}) for v in vals]
 
+def fileNameToEngineName(s):
+    if 'stockfish' in s:
+        n, s, m, d = s.split('_')
+        return "StockfishEngine s{} d{} {}".format(s[:-1], d[:-1], m[:-1])
+    elif 'leela' in s:
+        n, e = s.split('_')
+        return "LeelaEngine t3-{}".format(e)
+    elif 'hiabrid' in s:
+        n, e = s.split('_')
+        return "HaibridEngine {}-64x6-140000".format(e)
+    elif 'random' in s:
+        return 'RandomEngine random'
+    raise RuntimeError(f"{s} is not a valid engine file name")
+
 def listStockfishs():
     vals = []
     for s, m, d in zip(stockfish_SKILL, stockfish_MOVETIMES, stockfish_DEPTHS):
@@ -227,4 +241,4 @@ def playStockfishGauntlet(E, num_rounds):
     return pgns
 
 def listAllEngines(hiabridConfig = None, leelaConfig = None):
-    return listHaibrids(configs = hiabridConfig) +listLeelas(configs = leelaConfig) + listStockfishs() + listRandoms()
+    return listHaibrids(configs = hiabridConfig) + listLeelas(configs = leelaConfig) + listStockfishs() + listRandoms()
