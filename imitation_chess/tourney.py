@@ -125,7 +125,7 @@ def playGame(E1, E2, round = None):
         i += 1
     pgnGame = chess.pgn.Game.from_board(board)
 
-    pgnGame.headers['Event'] = f"{E1.name} vs {E1.name}"
+    pgnGame.headers['Event'] = f"{E1.name} vs {E2.name}"
     pgnGame.headers['White'] = E1.name
     pgnGame.headers['Black'] = E2.name
     pgnGame.headers['Date'] = timeStarted.strftime("%Y-%m-%d %H:%M:%S")
