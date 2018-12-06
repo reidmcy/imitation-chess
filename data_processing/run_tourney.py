@@ -15,6 +15,8 @@ def main():
     os.makedirs(resultsDir, exist_ok=True)
     engines = imitation_chess.listAllEngines(leelaConfig={'movetime' : 10000, 'nodes' : 10000}, hiabridConfig = {'movetime' : 10000, 'nodes' : 10000})
 
+    engines = sorted(engines)
+
     opponents = []
     for i, e1 in enumerate(engines):
         if 'hiabrid' in e1:
