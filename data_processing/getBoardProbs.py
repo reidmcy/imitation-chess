@@ -8,12 +8,12 @@ import sys
 import multiprocessing
 
 boardStates = '../data/mapping_lichess_db_standard_rated_2018-10_collected.json'
+networksDir = '/u/reidmcy/w/chess/imitation-chess/networks'
+ouputDir = '../data/early_games_140000'
 
-ouputDir = '../data/early_games'
+num_engines = 16
 
-num_engines = 8
-
-nodesPerBoard = 1000
+nodesPerBoard = 10000
 
 def jsonOutput(results, board):
     bestmove = str(results[0].bestmove)
@@ -31,14 +31,7 @@ def EngineProcess(enginePath, boards, Q):
     return
 
 
-def main():
-
-
-    targetNetwork = sys.argv[1]
-    if not os.path.isfile(targetNetwork):
-        raise RuntimeError("Invalid network path")
-
-
+def engineRun(targetNetwork)
     outputName = os.path.join(ouputDir, os.path.basename(targetNetwork)[:-6] + '.json')
 
     print(f"Starting on: {targetNetwork} to {outputName}")
@@ -84,12 +77,25 @@ def main():
             print(f"\nProcess {num_done_procs} of {num_engines} complete")
             if num_done_procs == num_engines:
                 break
+
     print("\nAll done, joining")
-    for p in property:
+    for p in processes:
         p.join()
     print("Done")
 
+def main():
 
+    engines = []
+    for e in os.scandir(networksDir):
+        if e.name.endswith('-64x6-140000.pb.gz'):
+            engines.append(e.path)
+
+    for engine in engines:
+        print(f"Starting {engine}")
+        engineRun(engine)
+        print(f"Done {engine}")
+
+    print("Done All engines")
 
 if __name__ == '__main__':
     main()
