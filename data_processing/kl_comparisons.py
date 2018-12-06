@@ -16,7 +16,7 @@ import os.path
 
 states = '../data/mapping_lichess_db_standard_rated_2018-10_collected.json'
 
-netProbs = '../data/early_games/'
+netProbs = '../data/early_games_140000/'
 
 def genHaiKLs(path):
     with open(states) as f:
