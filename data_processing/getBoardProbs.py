@@ -31,7 +31,7 @@ def EngineProcess(enginePath, boards, Q):
     return
 
 
-def engineRun(targetNetwork)
+def engineRun(targetNetwork):
     outputName = os.path.join(ouputDir, os.path.basename(targetNetwork)[:-6] + '.json')
 
     print(f"Starting on: {targetNetwork} to {outputName}")
