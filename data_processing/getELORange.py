@@ -49,7 +49,10 @@ def getNextGame(f):
             except ValueError:
                 eloB = 0
                 isBad = True
-    return out, isBad, eloW, eloB
+    try:
+        return out, isBad, eloW, eloB
+    except UnboundLocalError:
+        return out, True, 0, 0
 
 
 def readCollection(path, fout, minElo, maxElo, numRemaining):
@@ -60,7 +63,7 @@ def readCollection(path, fout, minElo, maxElo, numRemaining):
     with bz2.open(path, 'rt') as f:
         while True:
             if numWritten % 1000 == 0:
-                print(f"Reading {os.path.basename(path)}, games read: {i}, games written: {numWritten}, in {time.time() - tstart:.2f}s need {numRemaining} more", end = '\r')
+                print(f"Reading {os.path.basename(path)[-30:]}, games read: {i}, games written: {numWritten}, in {time.time() - tstart:.2f}s need {numRemaining} more", end = '\r')
             i += 1
             game, isBad, eloW, eloB = getNextGame(f)
             if len(game) < 1:
