@@ -38,14 +38,22 @@ def getNextGame(f):
             if '*' in l:
                 isBad = True
         elif l.startswith('[WhiteElo '):
-            eloW = int(l[11:-3])
+            try:
+                eloW = int(l[11:-3])
+            except ValueError:
+                eloW = 0
+                isBad = True
         elif l.startswith('[BlackElo '):
-            eloB = int(l[11:-3])
-
+            try:
+                eloB = int(l[11:-3])
+            except ValueError:
+                eloB = 0
+                isBad = True
     return out, isBad, eloW, eloB
 
 
 def readCollection(path, fout, minElo, maxElo, numRemaining):
+    print(f"Reading {os.path.basename(path)}", end = '\r')
     numWritten = 0
     i = 0
     tstart = time.time()
@@ -76,7 +84,8 @@ def main():
 
     print(f"Starting pgn extraction of {args.count} game between {args.min} {args.max} ELO to {args.output}")
 
-    os.makedirs(os.path.dirname(args.output), exist_ok=True)
+    if len(os.path.dirname(args.output)) > 0:
+        os.makedirs(os.path.dirname(args.output), exist_ok=True)
 
     numRemaining = args.count
     with open(args.output, 'w') as fout:
