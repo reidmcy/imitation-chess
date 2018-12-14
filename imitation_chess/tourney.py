@@ -170,6 +170,7 @@ def checkTrajectories(engineStr, gamesPath, resultsDir):
                 'site' : g.headers.get('Site', 'missing'),
             }, f)
             f.write('\n')
+            f.flush()
             print(f"{saveName[-50:]} {i} games done")
 def playTourney(E1str, E2str, num_rounds, resultsDir):
     tstart = time.time()

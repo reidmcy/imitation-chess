@@ -4,7 +4,7 @@ import os
 import json
 import multiprocessing
 
-nProcesses = 16
+nProcesses = 64
 
 resultsDir = 'sweep_ada_2'
 
