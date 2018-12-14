@@ -159,6 +159,8 @@ def checkTrajectories(engineStr, gamesPath, resultsDir):
 
     saveName = os.path.join(resultsDir, f"{json.loads(engineStr)['name']}-{os.path.basename(gamesPath)}")
 
+    print(f"Starting: {saveName[-50:]}")
+
     with open(saveName, 'w') as f:
         for g in games:
             engineT, humanT = getTrajectory(E, g)

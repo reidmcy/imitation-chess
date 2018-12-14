@@ -25,10 +25,10 @@ def main():
         for e1 in engines:
             targets.append((e1, e.path, resultsDir))
 
-
+    print("Starting run")
     with multiprocessing.Pool(processes = nProcesses) as pool:
         results = pool.starmap(imitation_chess.checkTrajectories, targets)
     print("Done")
 
-    if __name__ == '__main__':
-        main()
+if __name__ == '__main__':
+    main()
