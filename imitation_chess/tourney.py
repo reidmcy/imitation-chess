@@ -133,6 +133,42 @@ def playGame(E1, E2, round = None):
         pgnGame.headers['Round'] = round
     return pgnGame
 
+def getTrajectory(engine, game):
+    engine.newgame()
+    b = game.board()
+
+    emoves = []
+    hmoves = []
+    for i, hMov in enumerate(game.main_line()):
+        if i % 2 == 1:
+            eMov = engine.getMove(b)
+            hmoves.append(hMov.uci())
+            emoves.append(eMov.uci())
+        b.push(hMov)
+    return emoves, hmoves
+
+def checkTrajectories(engineStr, gamesPath, resultsDir):
+    E = stringToEngine(engineStr)
+
+    games = []
+    with open(gamesPath) as f:
+        g = chess.pgn.read_game(f)
+        while g is not None:
+            games.append(g)
+            g = chess.pgn.read_game(f)
+
+    saveName = os.path.join(resultsDir, f"{json.loads(engineStr)['name']}-{os.path.basename(gamesPath)}")
+
+    with open(saveName, 'w') as f:
+        for g in games:
+            engineT, humanT = getTrajectory(E, g)
+            json.dump({
+                'human' : humanT,
+                'engine' : engineT,
+                'site' : g.headers.get('Site', 'missing'),
+            }, f)
+            f.write('\n')
+
 def playTourney(E1str, E2str, num_rounds, resultsDir):
     tstart = time.time()
     E1 = stringToEngine(E1str)
