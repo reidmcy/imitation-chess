@@ -1,0 +1,80 @@
+\documentclass{article}
+\usepackage[final]{nips_2018}
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+
+
+\usepackage{natbib}
+
+\title{CSC2541-f18 Course Project Proposal\\Human-Like Chess Engine}
+\author{
+	Reid McIlroy-Young\\
+	University of Toronto\\
+	\texttt{reid.mcilroy.young@mail.utoronto.ca} \\
+	%% examples of more authors
+	 \And
+	 Karthik Raja Kalaiselvi Bhaskar \\
+	 University of Toronto\\
+	 \texttt{karthikraja.kalaiselvibhaskar@mail.utoronto.ca} \\
+}
+
+\date{October 14, 2018}
+
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+	We propose to create a chess engine with human-like behaviour. To do this we would take an existing engine and replace the policy selection with an algorithm that attempts to minimize risks in addition to winning. We do not know which algorithm will work so propose three as starting points.
+\end{abstract}
+
+
+\begin{itemize}
+	\item Intro
+	\item lit review
+	\item data
+	\item chess engines
+	\begin{itemize}
+		\item leela
+		\item stockfish
+		\item random agent
+	\end{itemize}
+	\item methods
+	\begin{itemize}
+		\item how to measure human like
+		\item supervised vs self play
+		\item leela training config
+	\end{itemize}
+	\item results
+	\begin{itemize}
+		\item win rates
+		\item kl
+		\item path following
+	\end{itemize}
+	\item discussion
+	\begin{itemize}
+		\item haibrid is not very good
+		\item future work needed
+		\item new engines are better
+	\end{itemize}
+	\item conclusion
+\end{itemize}
+
+\begin{itemize}
+	\item elo dist
+	\item board trajectories
+	\item KL divergences 
+	\item winrate
+	\item tie rates
+\end{itemize}
+\bibliography{Report}{}
+
+\bibliographystyle{plain}
+\end{document}
