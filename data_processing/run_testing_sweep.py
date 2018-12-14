@@ -27,7 +27,7 @@ def main():
 
 
     with multiprocessing.Pool(processes = nProcesses) as pool:
-        results = pool.starmap(imitation_chess.checkTrajectory, targets)
+        results = pool.starmap(imitation_chess.checkTrajectories, targets)
     print("Done")
 
     if __name__ == '__main__':
