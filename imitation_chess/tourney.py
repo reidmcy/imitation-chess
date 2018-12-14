@@ -162,7 +162,7 @@ def checkTrajectories(engineStr, gamesPath, resultsDir):
     print(f"Starting: {saveName[-50:]}")
 
     with open(saveName, 'w') as f:
-        for g in games:
+        for i, g in enumerate(games):
             engineT, humanT = getTrajectory(E, g)
             json.dump({
                 'human' : humanT,
@@ -170,7 +170,7 @@ def checkTrajectories(engineStr, gamesPath, resultsDir):
                 'site' : g.headers.get('Site', 'missing'),
             }, f)
             f.write('\n')
-
+            print(f"{saveName[-50:]} {i} games done")
 def playTourney(E1str, E2str, num_rounds, resultsDir):
     tstart = time.time()
     E1 = stringToEngine(E1str)
