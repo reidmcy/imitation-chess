@@ -9,7 +9,7 @@ import multiprocessing
 
 boardStates = '../data/mapping_lichess_db_standard_rated_2018-10_collected.json'
 networksDir = '/u/reidmcy/w/chess/imitation-chess/networks'
-ouputDir = '../data/early_games_140000'
+ouputDir = '../data/early_games_new'
 
 num_engines = 16
 
@@ -87,7 +87,7 @@ def main():
 
     engines = []
     for e in os.scandir(networksDir):
-        if e.name.endswith('-64x6-140000.pb.gz'):
+        if e.name.endswith('.pb.gz') and ('1200_1500' in e.name or '2000_2300' in e.name):
             engines.append(e.path)
 
     for engine in engines:
