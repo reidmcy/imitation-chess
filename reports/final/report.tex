@@ -11,6 +11,11 @@
 \usepackage{microtype}      % microtypography
 
 
+\usepackage{graphicx}
+\DeclareGraphicsExtensions{{.pdf, .png, .jpg}}
+\graphicspath{ {images/} }
+\usepackage{adjustbox}
+
 \usepackage{natbib}
 
 \title{CSC2541-f18 Course Project Proposal\\Human-Like Chess Engine}
@@ -34,6 +39,49 @@
 \begin{abstract}
 	We propose to create a chess engine with human-like behaviour. To do this we would take an existing engine and replace the policy selection with an algorithm that attempts to minimize risks in addition to winning. We do not know which algorithm will work so propose three as starting points.
 \end{abstract}
+
+
+\section{Method}
+
+\subsection{Data}
+
+For this project we need games played between humans with average skill levels, instead of the collections of advanced player's games more commonly used \cite{david2016deepchess}. To this end we used a subset of the 432,335,939 games on Lichess \cite{lichess} (on November 2018). Lichess maintains a player ELO rating system which allowed us to extract games played between evenly matched ELO players. We considered players evenly matched if they had the same ELO when rounded up to the nearest hundred. The counts for each bin are shown in figure \ref{eloG}. During training games were randomly sampled from a selected bin, thus giving an engine that has only been trained on one ELO range of players. We also set aside the 22,971,939 games from Septmber of 2018 as a holdout set.
+
+\begin{figure}[ht]
+	\centering
+	\begin{adjustbox}{center}
+		\includegraphics[height=.5\textheight]{countPerELO.pdf}
+	\end{adjustbox}
+	\caption{Distribution of games between similar ELO players}\label{eloG}
+\end{figure}
+
+\subsection{ELO}
+
+The main system used for evaluating chess players and evaluating chess engines ELO \cite{glickman1995glicko} is much less useful than one might expect. Since ELO relies on the win rate of a single individual against other ranked individuals within some time period and does not refer to any external factors \cite{glickman1995glicko} it is excellent at rating players within a well connected player community. But when attempting to compare chess players or engines that are not already ranked or capable of directly playing each other the ELO does not work, this is before considering that engine performance varies greatly depending on the computing resources provided. Thus when a group presents an ELO rating for their engine, e.g. \citep{Silver1140}, their ELO is only well defined within their testing system. Therefore is more useful to view ELO as a simple ranking and to ignore the values when comparing between groups.
+
+We have two separate ELO rankings used throughout our paper. First, there is the ELO used by Lichess, these numbers are derived based on human players playing ranked events and are accurate for most individuals. Second the ELO ranking used by Leela chess to compare different generations of their engines, these are less accurate and prone to inflation, since every new engines must beat the previous ones.
+
+We did attempt to create our own ELO ranking system for comparing our own engines but the overhead in getting well defined ELOs for the benchmarking is high and simply ranking a series of engines provides nearly the same information. That said, measuring our own ELO would be considered in future work. 
+
+\subsection{Leela Chess}
+
+The \textit{AlphaZero} chess engine created by \textit{DeepMind} is closed source and does not have an version available to use \cite{Silver1140}. There is though an free and open source implementation of the zero training and playing system, \textit{Leela Chess Zero} \cite{leela}. As the name suggests \textit{Leela Chess Zero} is trained via self play and besides tweaks to the hyper parameters and residual layers is a \textit{clean room} reimplementation of the \textit{AlphaZero} system. For our work we replaced the self play with human games, thus going back from and unsupervised to a supervised domain.
+
+The reinforcement learning 
+
+%%RL STUFF HERE
+
+\section{Experiments}
+
+\subsection{Training}
+
+To 
+
+
+\section{Section}
+
+\section{Conclusions}
+
 
 
 \begin{itemize}
@@ -63,6 +111,7 @@
 		\item haibrid is not very good
 		\item future work needed
 		\item new engines are better
+		\item computational limits of chess
 	\end{itemize}
 	\item conclusion
 \end{itemize}
