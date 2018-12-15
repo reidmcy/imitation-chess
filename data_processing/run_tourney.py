@@ -8,18 +8,23 @@ nProcesses = 86
 num_games = 10
 num_leelas = 12
 
-resultsDir = 'hairbrid_games_ada'
+resultsDir = 'hairbrid_new_games_ada'
 
 def main():
 
     os.makedirs(resultsDir, exist_ok=True)
-    engines = imitation_chess.listAllEngines(leelaConfig={'movetime' : 10000, 'nodes' : 10000}, hiabridConfig = {'movetime' : 10000, 'nodes' : 10000})
+
+    engines = imitation_chess.listLeelas(configs = {'movetime' : 10000, 'nodes' : 10000})
+
+    engines += imitation_chess.listStockfishs() + imitation_chess.listRandoms()
+
+    engines += imitation_chess.listHaibrids(configs = {'movetime' : 10000, 'nodes' : 10000}, suffix = '.pb.gz')
 
     engines = sorted(engines)
 
     opponents = []
     for i, e1 in enumerate(engines):
-        if 'hiabrid' in e1:
+        if 'hiabrid' in e1 and ('1200_1500' in e1 or '2000_2300' in e1):
             lcount = 0
             for e2 in engines[i:]:
                 dat = json.loads(e2)
