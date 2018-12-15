@@ -172,6 +172,7 @@ def checkTrajectories(engineStr, gamesPath, resultsDir):
             f.write('\n')
             f.flush()
             print(f"{saveName[-50:]} {i} games done")
+
 def playTourney(E1str, E2str, num_rounds, resultsDir):
     tstart = time.time()
     E1 = stringToEngine(E1str)
@@ -223,12 +224,12 @@ def listLeelas(configs = None):
             vals.append(v)
     return [json.dumps({'engine' : 'leela', 'config' : v, 'name' : f"leela_{os.path.basename(v['weightsPath']).split('-')[1]}"}) for v in vals]
 
-def listHaibrids(configs = None):
+def listHaibrids(configs = None, suffix = '-64x6-140000.pb.gz'):
     if configs is None:
         configs = {}
     vals = []
     for e in os.scandir(os.path.join(networksDir)):
-        if e.name.endswith('-64x6-140000.pb.gz'):
+        if e.name.endswith(suffix):
             v = {'weightsPath' : e.path}
             v.update(configs)
             vals.append(v)
