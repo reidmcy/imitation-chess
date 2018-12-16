@@ -84,7 +84,7 @@ def genHaiKLs(path):
     df_kl[['kl_prob', 'human_probs', 'comp_probs', 'comp_ns', 'kl_n']].to_csv(os.path.join(outputDir, os.path.basename(path)[:-5] + '.csv'))
 
 def main():
-    os,path.makedirs(outputDir, exist_ok=True)
+    os.makedirs(outputDir, exist_ok=True)
     for e in os.scandir(netProbs):
         if e.name.endswith('json'):
             genHaiKLs(e.path)
