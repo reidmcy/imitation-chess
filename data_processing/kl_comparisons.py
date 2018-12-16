@@ -18,6 +18,8 @@ states = '../data/mapping_lichess_db_standard_rated_2018-10_collected.json'
 
 netProbs = '../data/early_games_140000/'
 
+outputDir = '../data/early_games_140000_proccessed/'
+
 def genHaiKLs(path):
     with open(states) as f:
         boards = [json.loads(l) for l in f]
@@ -79,7 +81,7 @@ def genHaiKLs(path):
     df_kl['comp_ns'] = list(comp_ns)
     df_kl = df_kl.sort_values('kl_n', ascending=False)
 
-    df_kl[['kl_prob', 'human_probs', 'comp_probs', 'comp_ns', 'kl_n']].to_csv(os.path.basename(path)[:-5] + '.csv')
+    df_kl[['kl_prob', 'human_probs', 'comp_probs', 'comp_ns', 'kl_n']].to_csv(os.path.join(outputDir, os.path.basename(path)[:-5] + '.csv'))
 
 def main():
 
