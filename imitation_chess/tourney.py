@@ -243,7 +243,7 @@ def fileNameToEngineName(s):
         n, e = s.split('_')
         return "LeelaEngine t3-{}".format(e)
     elif 'hiabrid' in s:
-        n, e = s.split('_')
+        n, e, *_ = s.split('_')
         return "HaibridEngine {}-64x6-140000".format(e)
     elif 'random' in s:
         return 'RandomEngine random'
