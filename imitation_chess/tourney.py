@@ -18,7 +18,7 @@ _lc0Path = 'lc0'
 
 _movetime = 10
 
-networksDir = '/u/reidmcy/w/chess/imitation-chess/networks'
+networksDir = '/u/reidmcy/chess/imitation-chess/networks'
 
 stockfish_SKILL = [0, 3, 6, 10, 14, 16, 18, 20]
 stockfish_MOVETIMES = [50, 100, 150, 200, 300, 400, 500, 1000]
