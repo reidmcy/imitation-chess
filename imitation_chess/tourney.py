@@ -224,11 +224,11 @@ def listLeelas(configs = None):
             vals.append(v)
     return [json.dumps({'engine' : 'leela', 'config' : v, 'name' : f"leela_{os.path.basename(v['weightsPath']).split('-')[1]}"}) for v in vals]
 
-def listHaibrids(configs = None, suffix = '-64x6-140000.pb.gz'):
+def listHaibrids(configs = None, netsDir = '', suffix = '-64x6-140000.pb.gz'):
     if configs is None:
         configs = {}
     vals = []
-    for e in os.scandir(os.path.join(networksDir)):
+    for e in os.scandir(os.path.join(networksDir, netsDir)):
         if e.name.endswith(suffix):
             v = {'weightsPath' : e.path}
             v.update(configs)
