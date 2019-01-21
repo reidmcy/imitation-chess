@@ -13,7 +13,7 @@ gamesDir = '../testing_games'
 def main():
 
     os.makedirs(resultsDir, exist_ok=True)
-    engines = imitation_chess.listHaibrids(netsDir = '2048', config = {'movetime' : 1000, 'nodes' : 1000})
+    engines = imitation_chess.listHaibrids(netsDir = '2048', configs = {'movetime' : 1000, 'nodes' : 1000})
 
     engines = sorted(engines)
 
