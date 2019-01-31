@@ -6,14 +6,14 @@ import multiprocessing
 
 nProcesses = 64
 
-resultsDir = 'sweep_ada_single'
+resultsDir = 'sweep_ada_single_1000'
 
 gamesDir = '../testing_games'
 
 def main():
 
     os.makedirs(resultsDir, exist_ok=True)
-    engines = imitation_chess.listHaibrids(netsDir = 'single', configs = {'movetime' : 1000, 'nodes' : 0})
+    engines = imitation_chess.listHaibrids(netsDir = 'single', configs = {'movetime' : 1000, 'nodes' : 1000})
 
     engines = sorted(engines)
 
